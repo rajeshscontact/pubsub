@@ -1,0 +1,51 @@
+extends layout
+
+block content
+  div(ng-app='app')
+    div(style='background-color:white', ng-controller='UserLogController')
+      #heading Latest Log is displayed here
+      {{alert}}
+    br
+    br
+    div(ng-controller='UserController')
+        #container
+          form(name='form')
+            #heading User Details Demo
+            table
+              tr
+                td
+                  label Name:
+                td
+                  input(type='text', name='name', ng-model='newuser.name', required='', autofocus='')
+              tr
+                td
+                  label Email:
+                td
+                  input(type='email', name='email', ng-model='newuser.email', required='')
+                  span(ng-show='form.email.$dirty && form.email.$error.email') Not an email id!
+              tr
+                td
+                  label Phone:
+                td
+                  input(type='text', name='phone', ng-model='newuser.phone', maxlength='11', required='')
+                td
+              tr
+                td
+                td
+                  input#save-btn(ng-disabled='form.$invalid', type='button', value='Save', ng-click='saveUser()')
+        table#user-details-in-table
+          thead
+            tr
+              th Name
+              th Email
+              th Phone
+              th Action
+          tbody
+            tr(ng-repeat='user in users')
+              td {{ user.name }}
+              td {{ user.email }}
+              td {{ user.phone }}
+              td
+                a(href='javascript:void(0)', ng-click='edit(user.id)') Edit
+                |  
+                a(href='javascript:void(0)', ng-click='delete(user.id)') Delete
